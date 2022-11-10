@@ -1,11 +1,13 @@
 #include <pthread.h>
 #include <stdio.h>
+#define NUM_THREADS 100
 
-typedef struct threa_Data{
+typedef struct thread_Data{
     int threadId;
     char name[20];
     //..
 } ThreaData;
+typedef char caracter;
 
 void *holaMundo(void *arg){
     ThreaData *myData = (ThreaData *)arg;
@@ -15,11 +17,11 @@ void *holaMundo(void *arg){
 }
 
 int main(){
-    for(int i = 0; i < 100; ++i){
-    ThreaData myData;
+    ThreaData thread_Data[NUM_THREADS];
+    for(int i = 0; i < NUM_THREADS; ++i){
     pthread_t threadId;
-    myData.threadId = i;
-    pthread_create(&threadId,NULL,holaMundo,(void *)&myData);
+    thread_Data[i].threadId = i;
+    pthread_create(&threadId,NULL,holaMundo,(void *)&threa_Data[i]);
     }
     pthread_exit(NULL);
     printf("Nunca llega");
